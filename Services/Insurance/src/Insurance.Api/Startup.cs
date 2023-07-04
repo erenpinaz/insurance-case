@@ -1,16 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
 namespace Insurance.Api
 {
     public class Startup
@@ -26,6 +13,15 @@ namespace Insurance.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            #region Swagger
+
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddSwaggerGen(options => options.EnableAnnotations());
+
+            #endregion
+
+            services.AddInfrastructureServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,8 +29,15 @@ namespace Insurance.Api
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                #region Swagger
+
+                app.UseSwagger();
+                app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Insurance API v1"));
+
+                #endregion
             }
+
+            app.UseExceptionHandlingMiddleware();
 
             app.UseHttpsRedirection();
 

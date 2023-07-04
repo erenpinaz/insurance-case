@@ -1,0 +1,10 @@
+﻿global using Insurance.Api.Application.Dtos;
+global using Insurance.Api.Application.Interfaces;
+global using Insurance.Api.Application.Requests;
+global using Insurance.Api.Domain.Constants;
+global using Insurance.Api.Infrastructure.Services;
+global using Moq;
+global using System;
+global using System.Linq;
+global using System.Threading.Tasks;
+global using Xunit;
