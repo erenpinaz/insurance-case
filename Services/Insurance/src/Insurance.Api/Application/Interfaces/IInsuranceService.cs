@@ -4,6 +4,10 @@
     {
         Task<ProductInsuranceResponse> CalculateProductInsuranceAsync(int productId);
 
-        Task<OrderInsuranceResponse> CalculateOrderInsuranceAsync(OrderInsuranceRequest request);
+        Task<OrderInsuranceResponse> CalculateOrderInsuranceAsync(CalculateOrderInsuranceRequest orderInsuranceRequest);
+
+        Task<SurchargeRateResponse> CreateSurchargeRateAsync(CreateSurchargeRateRequest surchargeRateRequest);
+
+        Task<SurchargeRateResponse> GetSurchargeRateAsync(int productTypeId);
     }
 }

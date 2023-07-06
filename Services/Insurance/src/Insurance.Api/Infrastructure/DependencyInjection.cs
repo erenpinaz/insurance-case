@@ -10,7 +10,14 @@
 
             #endregion
 
-            #region Typed HttpClients
+            #region Repositories
+
+            // Added as singleton to emulate key-value database service
+            services.AddSingleton<ISurchargeRateRepository, SurchargeRateRepository>();
+
+            #endregion
+
+            #region Clients
 
             var productClientConfiguration = configuration.GetSection("ProductClient");
             services.Configure<ClientSettings>(productClientConfiguration);

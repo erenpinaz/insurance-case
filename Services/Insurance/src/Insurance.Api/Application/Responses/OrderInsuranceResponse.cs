@@ -1,4 +1,9 @@
 ﻿namespace Insurance.Api.Application.Responses
 {
-    public record OrderInsuranceResponse(float TotalInsuranceCost, List<ProductInsuranceResponse> InsuranceDetails);
+    public record OrderInsuranceResponse
+    (
+        float TotalInsuranceCost,
+
+        List<ProductInsuranceResponse> InsuranceDetails
+    );
 }

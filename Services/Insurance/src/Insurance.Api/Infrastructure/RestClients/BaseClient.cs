@@ -14,13 +14,13 @@
             using var response = await _httpClient.GetAsync(relativeUrl, HttpCompletionOption.ResponseHeadersRead);
 
             if (response.StatusCode == HttpStatusCode.NotFound)
-                throw new ApiException(response.StatusCode, "Requested resource is not found.");
+                throw new AppException(response.StatusCode, "Requested resource is not found.");
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
-                throw new ApiException(response.StatusCode, "Invalid request.");
+                throw new AppException(response.StatusCode, "Invalid request.");
 
             if (!response.IsSuccessStatusCode)
-                throw new ApiException(response.StatusCode, "An error occurred while completing the request.");
+                throw new AppException(response.StatusCode, "An error occurred while completing the request.");
 
             var result = await response.Content.ReadFromJsonAsync<TData>();
             return result;

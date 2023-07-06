@@ -13,33 +13,33 @@
         public const float MaxSalesPrice = 2000F;
 
         /// <summary>
-        /// A product is first-level insurable when a value 
+        /// A product is first-level insurable when sales price 
         /// greater than or equal to <see cref="MinSalesPrice"/> and 
         /// less than <see cref="MaxSalesPrice"/>
         /// </summary>
         public const float FirstLevelInsuranceCost = 1000F;
 
         /// <summary>
-        /// A product is second-level insurable when a value 
+        /// A product is second-level insurable when sales price 
         /// greater than or equal to <see cref="MaxSalesPrice"/>
         /// </summary>
         public const float SecondLevelInsuranceCost = 2000F;
 
         /// <summary>
-        /// Value to be added to total when a product subject for 
+        /// Value to be added to total when a product subject to 
         /// additional insurance costs
         /// </summary>
         public const float AdditionalInsuranceCost = 500F;
 
         /// <summary>
-        /// Value to be added to total when an order is subject for 
+        /// Value to be added to total when an order is subject to 
         /// additional insurance cost
         /// </summary>
         public const float AdditionalOrderInsuranceCost = 500F;
 
         /// <summary>
-        /// Used to determine if a product subject for 
-        /// additional insurance cost
+        /// A product is subject to additional insurance cost
+        /// if it's type matches a value in this collection
         /// </summary>
         public static readonly HashSet<string> ProductTypesWithAdditionalCost = new(StringComparer.OrdinalIgnoreCase)
         {
@@ -48,8 +48,8 @@
         };
 
         /// <summary>
-        /// Used to determine if an order subject for 
-        /// additional insurance cost
+        /// Order is subject to additional insurance cost
+        /// if it contains one or more of this type
         /// </summary>
         public const string ProductTypeWithAdditionalOrderCost = ProductTypeNames.DIGITAL_CAMERA;
     }

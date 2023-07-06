@@ -1,10 +1,10 @@
 ﻿namespace Insurance.Api.Application.Exceptions
 {
-    public class ApiException : Exception
+    public class AppException : Exception
     {
         public HttpStatusCode StatusCode { get; }
 
-        public ApiException(HttpStatusCode statusCode, string message)
+        public AppException(HttpStatusCode statusCode, string message)
             : base(message)
         {
             StatusCode = statusCode;

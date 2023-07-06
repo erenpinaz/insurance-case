@@ -1,21 +1,13 @@
 ﻿namespace Insurance.Api.Application.Dtos
 {
     public record ProductDto
-    {
-        public int Id { get; set; }
+    (
+        int Id,
 
-        public string Name { get; set; }
+        string Name,
 
-        public float SalesPrice { get; set; }
+        float SalesPrice,
 
-        public int ProductTypeId { get; set; }
-
-        public ProductDto(int id, string name, float salesPrice, int productTypeId)
-        {
-            Id = id;
-            Name = name;
-            SalesPrice = salesPrice;
-            ProductTypeId = productTypeId;
-        }
-    }
+        int ProductTypeId
+    );
 }

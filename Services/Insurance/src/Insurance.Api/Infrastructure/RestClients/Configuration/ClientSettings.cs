@@ -1,7 +1,7 @@
 ﻿namespace Insurance.Api.Infrastructure.RestClients.Configuration
 {
     /// <summary>
-    /// Settings for the typed <see cref="HttpClient"/>
+    /// Settings for the underlying <see cref="HttpClient"/>
     /// used by the client.
     /// </summary>
     public record ClientSettings

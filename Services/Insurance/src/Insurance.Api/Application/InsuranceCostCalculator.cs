@@ -64,9 +64,9 @@
 
             float AddSurchargeRate(float insuranceCost)
             {
-                if (product.SurchargeRate > 0)
+                if (product.SurchargeRate.HasValue && product.SurchargeRate.Value > 0)
                 {
-                    insuranceCost += product.SalesPrice * product.SurchargeRate / 100;
+                    insuranceCost += product.SalesPrice * product.SurchargeRate.Value / 100;
                 }
 
                 return insuranceCost;

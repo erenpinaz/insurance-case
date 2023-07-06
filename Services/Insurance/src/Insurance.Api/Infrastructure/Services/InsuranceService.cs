@@ -4,9 +4,12 @@
     {
         private readonly IProductClient _productClient;
 
-        public InsuranceService(IProductClient productClient)
+        private readonly ISurchargeRateRepository _surchargeRateRepository;
+
+        public InsuranceService(IProductClient productClient, ISurchargeRateRepository surchargeRateRepository)
         {
             _productClient = productClient;
+            _surchargeRateRepository = surchargeRateRepository;
         }
 
         public async Task<ProductInsuranceResponse> CalculateProductInsuranceAsync(int productId)
@@ -18,9 +21,9 @@
             return new ProductInsuranceResponse(productSummary);
         }
 
-        public async Task<OrderInsuranceResponse> CalculateOrderInsuranceAsync(OrderInsuranceRequest request)
+        public async Task<OrderInsuranceResponse> CalculateOrderInsuranceAsync(CalculateOrderInsuranceRequest orderInsuranceRequest)
         {
-            var productSummaryTasks = request.ProductIds
+            var productSummaryTasks = orderInsuranceRequest.ProductIds
                 .Distinct()
                 .Select(productId => GetProductSummaryForCalculation(productId))
                 .ToList();
@@ -39,11 +42,33 @@
             return new OrderInsuranceResponse(totalInsuranceCost, insuranceDetails);
         }
 
+        public async Task<SurchargeRateResponse> CreateSurchargeRateAsync(CreateSurchargeRateRequest surchargeRateRequest)
+        {
+            var surchargeRate = await _surchargeRateRepository.CreateSurchargeRateAsync(new SurchargeRate(surchargeRateRequest.ProductTypeId, surchargeRateRequest.SurchargeRate));
+
+            if (surchargeRate == null)
+                return null;
+
+            return new SurchargeRateResponse(surchargeRate.ProductTypeId, surchargeRate.Rate);
+        }
+
+        public async Task<SurchargeRateResponse> GetSurchargeRateAsync(int productTypeId)
+        {
+            var surchargeRate = await _surchargeRateRepository.GetSurchargeRateAsync(productTypeId);
+
+            if (surchargeRate == null)
+                return null;
+
+            return new SurchargeRateResponse(surchargeRate.ProductTypeId, surchargeRate.Rate);
+        }
+
         private async Task<ProductSummaryDto> GetProductSummaryForCalculation(int productId)
         {
             var product = await _productClient.GetProductByIdAsync(productId);
+
             var productType = await _productClient.GetProductTypeByIdAsync(product.ProductTypeId);
-            var surchargeRate = 0;
+
+            var surchargeRate = await _surchargeRateRepository.GetSurchargeRateAsync(product.ProductTypeId);
 
             return new ProductSummaryDto
             {
@@ -52,8 +77,8 @@
                 ProductTypeName = productType.Name,
                 SalesPrice = product.SalesPrice,
                 ProductTypeHasInsurance = productType.CanBeInsured,
-                SurchargeRate = surchargeRate,
-                InsuranceCost = 0F,
+                SurchargeRate = surchargeRate?.Rate,
+                InsuranceCost = null,
             };
         }
     }

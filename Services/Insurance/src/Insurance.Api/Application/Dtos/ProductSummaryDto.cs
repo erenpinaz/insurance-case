@@ -12,8 +12,8 @@
 
         public bool ProductTypeHasInsurance { get; set; }
 
-        public int SurchargeRate { get; set; }
+        public float? SurchargeRate { get; set; }
 
-        public float InsuranceCost { get; set; }
+        public float? InsuranceCost { get; set; }
     }
 }
