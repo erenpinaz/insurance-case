@@ -41,6 +41,7 @@ namespace Insurance.Api.Controllers
             return CreatedAtAction(nameof(GetSurchargeRate), new { productTypeId = surchargeRateRequest.ProductTypeId }, surchargeRate);
         }
 
+        [HttpGet]
         [Route("surchargerate/{productTypeId}")]
         [SwaggerOperation(Summary = "Retrieves surcharge rate information for given product type.")]
         public async Task<IActionResult> GetSurchargeRate([FromRoute] int productTypeId)
