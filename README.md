@@ -63,21 +63,21 @@ TASK4 - FEATURE2 (CALCULATOR LOGIC)
 ------------------------------------
 - Assumed that business rules like insurance cost thresholds could change in the future. So I've created application-wide constants 
   for product types and all the relevant business rules in order to achieve some degree of configurability. I then used these constants 
-  in calculation and tests. I avoided declaring variables like isProductTypeSmartphone, etc.
+  in calculation and tests.
 
 TASK5 - FEATURE3 (SURCHARGE ENDPOINT)
 ------------------------------------
 - Assumed that a surcharge rate should be a percentage of some value. In this case I've chosen sales price of the product.
 - Assumed that a surcharge rate should be in some range (e.g. 200% of sales price would be a bit too much). Added validations to prevent
-  creating unrealistic rate values that might eventually upset our customers.
+  creating unrealistic rate values that might eventually upset our stakeholders.
 - Assumed that emulating a key-value store (C# ConcurrentDictionary with immutable primitive type) instead of running a docker container
   would be better for demonstration purposes. As an outcome of this decision, uploaded rates are not  persistent and will  be wiped-out
   as soon as the application restarts (Discussed with the stakeholders). I also decided not to use EntityFramework because I was planning
   to use a NoSQL DB in production.
 - Assumed that creating a surcharge rate should be an upsert.
-- Assumed that creating a surcharge should be allowed even when the product type is non-insurable. There is a trade-off between 
+- Assumed that creating a surcharge rate should be allowed even when the product type is non-insurable. There is a trade-off between 
   making an additional API call and creating some unnecessary data. Making an additional API call in a high-traffic endpoint could be
-  problematic.
+  a problem.
 
 FUTURE IMPROVEMENTS
 ------------------------------------
